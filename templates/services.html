@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services - Sybil & Margret</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+    }
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+    }
+    .service-icon {
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .section-title {
+      margin: 40px 0 20px 0;
+      text-align: center;
+      font-weight: bold;
+      color: #343a40;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Sybil & Margret</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="/analytics/1">Analytics</a></li>
+          <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Services Section -->
+  <div class="container my-5">
+    <h2 class="section-title">Our Professional Services</h2>
+    <div class="row g-4">
+      
+      <!-- Accounting & Bookkeeping -->
+      <div class="col-md-4">
+        <div class="card service-card h-100">
+          <img src="/static/images/accounting.jpg" class="card-img-top service-icon" alt="Accounting">
+          <div class="card-body">
+            <h5 class="card-title">Accounting & Bookkeeping</h5>
+            <p class="card-text">We manage your financial records with accuracy and professionalism, ensuring compliance and transparency.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tax Advisory -->
+      <div class="col-md-4">
+        <div class="card service-card h-100">
+          <img src="/static/images/tax.jpg" class="card-img-top service-icon" alt="Tax Advisory">
+          <div class="card-body">
+            <h5 class="card-title">Tax Advisory</h5>
+            <p class="card-text">Expert tax planning and advisory services to help you minimize liabilities and stay compliant.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payroll Services -->
+      <div class="col-md-4">
+        <div class="card service-card h-100">
+          <img src="/static/images/payroll.jpg" class="card-img-top service-icon" alt="Payroll">
+          <div class="card-body">
+            <h5 class="card-title">Payroll Services</h5>
+            <p class="card-text">Streamlined payroll processing to ensure timely and accurate employee compensation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Consulting -->
+      <div class="col-md-4">
+        <div class="card service-card h-100">
+          <img src="/static/images/consulting.jpg" class="card-img-top service-icon" alt="Consulting">
+          <div class="card-body">
+            <h5 class="card-title">Financial Consulting</h5>
+            <p class="card-text">Strategic financial advice to help businesses make informed decisions and grow sustainably.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auditing -->
+      <div class="col-md-4">
+        <div class="card service-card h-100">
+          <img src="/static/images/audit.jpg" class="card-img-top service-icon" alt="Auditing">
+          <div class="card-body">
+            <h5 class="card-title">Auditing</h5>
+            <p class="card-text">Comprehensive audits to assess compliance, risk, and performance with utmost integrity.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cleaning Services -->
+      <div class="col-md-4">
+        <div class="card service-card h-100">
+          <img src="/static/images/cleaning.jpg" class="card-img-top service-icon" alt="Cleaning">
+          <div class="card-body">
+            <h5 class="card-title">Cleaning Services</h5>
+            <p class="card-text">Professional cleaning for offices, buildings, and commercial spaces — ensuring a safe environment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Construction -->
+      <div class="col-md-4">
+        <div class="card service-card h-100">
+          <img src="/static/images/construction.jpg" class="card-img-top service-icon" alt="Construction">
+          <div class="card-body">
+            <h5 class="card-title">Construction</h5>
+            <p class="card-text">Reliable construction and renovation services, delivering quality and durability for every project.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

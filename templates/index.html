@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sybil & Margret - Accounting Made Easy</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* Splash Screen */
+    #splash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      text-align: center;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+    #splash img.splash-logo {
+      height: 180px;
+      width: auto;
+      margin-bottom: 20px;
+    }
+    #splash h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    #splash p {
+      font-size: 1.3rem;
+      color: #bbb;
+      margin-top: 5px;
+    }
+    .typing {
+      border-right: .1em solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 3s steps(30, end) forwards, blink .75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #fff; }
+    }
+
+    /* Hide homepage until splash ends */
+    #main-content {
+      display: none;
+    }
+
+    /* Navbar */
+    .navbar-brand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: #fff !important;
+    }
+    nav {
+      background: rgba(0,0,0,0.7);
+    }
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      background: url("static/images/hero-bg.jpg") no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 15px;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.65);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 750px;
+      padding: 20px;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      color: #ddd;
+    }
+    .btn-custom {
+      padding: 10px 25px;
+      font-size: 1rem;
+      border-radius: 30px;
+      transition: all 0.3s ease-in-out;
+    }
+    .btn-custom:hover {
+      transform: scale(1.05);
+    }
+
+    /* Features */
+    .features {
+      padding: 60px 0;
+    }
+    .feature-box {
+      padding: 25px;
+      border-radius: 12px;
+      transition: 0.3s;
+      background: #fff;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+    }
+    .feature-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0px 6px 18px rgba(0,0,0,0.15);
+    }
+    .feature-box h3 {
+      margin-bottom: 12px;
+      color: #0d6efd;
+      font-size: 1.3rem;
+    }
+    .feature-box p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* Footer */
+    footer a:hover {
+      text-decoration: underline;
+      color: #0d6efd;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Splash Screen -->
+<div id="splash">
+  <img src="static/images/logo.png" alt="Logo" class="splash-logo">
+  <h1 class="typing">Sybil & Margret</h1>
+  <p>Accounting Made Easy</p>
+</div>
+
+<!-- Main Content -->
+<div id="main-content">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="static/images/logo.png" alt="Logo" class="logo me-2">
+        Sybil & Margret
+      </a>
+      <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('index') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('services') }}">Services</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('about') }}">About</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Making Accounting Simple, Accurate & Stress-Free</h1>
+      <p>Take control of your finances with Sybil & Margret</p>
+      <a href="/login" class="btn btn-primary btn-custom me-3">Sign In</a>
+      <a href="/register" class="btn btn-outline-light btn-custom">Create Account</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features container text-center">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="feature-box">
+          <h3>📘 General Ledger</h3>
+          <p>Record all your financial transactions in one secure place with ease.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="feature-box">
+          <h3>📊 Financial Reports</h3>
+          <p>Generate Income Statements & Balance Sheets instantly, anytime you need.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="feature-box">
+          <h3>📈 Graphs & Analytics</h3>
+          <p>Visualize your financial data and make smarter decisions with clarity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script to hide splash after 5s -->
+<script>
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("splash").style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById("splash").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+      }, 1000);
+    }, 5000);
+  });
+</script>
+
+</body>
+</html>

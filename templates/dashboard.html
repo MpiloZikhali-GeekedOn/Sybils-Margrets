@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workspace - Stable & Margret</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #f8f9fa; }
+    .brand { font-family: 'Great Vibes', cursive; font-size: 2rem; color: #0d6efd; }
+    .navbar { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .workspace-header { margin-bottom: 30px; }
+    .welcome-card { background: #0d6efd; color: white; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+    .card { border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 8px 22px rgba(0,0,0,0.1); }
+    .btn-custom { border-radius: 30px; padding: 10px 25px; }
+    table th, table td { vertical-align: middle; }
+    .table-striped>tbody>tr:nth-of-type(odd){background-color: #f1f3f5;}
+    .debit { color: red; font-weight: 600; }
+    .credit { color: green; font-weight: 600; }
+    .company-select { max-width: 300px; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand brand" href="#">Stable & Margret</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><span class="nav-link text-white">Welcome, {{ user.full_name }}</span></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-4">
+
+  <!-- Welcome Card -->
+  <div class="welcome-card text-center">
+    <h2>Welcome to Your Workspace, {{ user.full_name }}!</h2>
+    <p>Manage companies, transactions, and financial reports all in one place.</p>
+  </div>
+
+  <!-- Workspace Header -->
+  <div class="d-flex justify-content-between align-items-center workspace-header">
+    <div>
+      <form method="POST">
+        <div class="input-group company-select">
+          <label class="input-group-text fw-bold" for="companySelect">Company</label>
+          <select name="company_id" id="companySelect" class="form-select" onchange="this.form.submit()">
+            {% for company in companies %}
+              <option value="{{ company.id }}" {% if selected_company and company.id == selected_company.id %}selected{% endif %}>{{ company.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </form>
+    </div>
+    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addCompanyModal">
+      + Add Company
+    </button>
+  </div>
+
+  <!-- Quick Access Cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <a href="{% if selected_company %}{{ url_for('ledger', company_id=selected_company.id) }}{% else %}#{% endif %}" style="text-decoration:none;">
+        <div class="card p-4 text-center {% if not selected_company %}bg-light text-muted{% endif %}">
+          <h5>📘 General Ledger</h5>
+          <p>Total Transactions: {{ total_transactions }}</p>
+          {% if selected_company %}
+            <span class="btn btn-primary btn-custom">View / Add Transactions</span>
+          {% else %}
+            <span class="btn btn-secondary btn-custom" disabled>Select a Company First</span>
+          {% endif %}
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="{% if selected_company %}{{ url_for('generate_report', company_id=selected_company.id) }}{% else %}#{% endif %}" style="text-decoration:none;">
+        <div class="card p-4 text-center {% if not selected_company %}bg-light text-muted{% endif %}">
+          <h5>📊 Financial Reports</h5>
+          <p>Last Report: {{ last_report_date }}</p>
+          {% if selected_company %}
+            <span class="btn btn-primary btn-custom">Generate Report</span>
+          {% else %}
+            <span class="btn btn-secondary btn-custom" disabled>Select a Company First</span>
+          {% endif %}
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="{% if selected_company %}{{ url_for('analytics', company_id=selected_company.id) }}{% else %}#{% endif %}" style="text-decoration:none;">
+        <div class="card p-4 text-center {% if not selected_company %}bg-light text-muted{% endif %}">
+          <h5>📈 Graphs & Analytics</h5>
+          <p>Monthly overview</p>
+          {% if selected_company %}
+            <span class="btn btn-primary btn-custom">View Graphs</span>
+          {% else %}
+            <span class="btn btn-secondary btn-custom" disabled>Select a Company First</span>
+          {% endif %}
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Recent Transactions -->
+  <h4>Recent Transactions</h4>
+  {% if transactions %}
+  <div class="table-responsive">
+    <table class="table table-striped mt-2">
+      <thead class="table-dark">
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in transactions %}
+        <tr>
+          <td>{{ t.date.strftime("%Y-%m-%d") }}</td>
+          <td>{{ t.description }}</td>
+          <td class="{{ 'debit' if t.type=='Debit' else 'credit' }}">{{ t.type }}</td>
+          <td class="{{ 'debit' if t.type=='Debit' else 'credit' }}">{{ t.amount }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p class="text-muted">No recent transactions for this company.</p>
+  {% endif %}
+
+</div>
+
+<!-- Add Company Modal -->
+<div class="modal fade" id="addCompanyModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{{ url_for('add_company') }}">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Company</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="companyName" class="form-label">Company Name</label>
+            <input type="text" class="form-control" name="company_name" id="companyName" required>
+          </div>
+          <div class="mb-3">
+            <label for="industry" class="form-label">Industry</label>
+            <input type="text" class="form-control" name="industry" id="industry">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Add Company</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
